@@ -6,3 +6,6 @@ debug:
 
 render:
 	./xtiny-raytracer > image.ppm
+
+clean:
+	rm -rf xtiny-raytracer xtiny-raytracer.*
