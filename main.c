@@ -23,7 +23,7 @@ void xfree(void *p) {
     free(p);
 }
 
-static vec3 color(const ray *r, const hitableList *world, int32_t depth) {
+static vec3 color(const ray *r, const hitableList *world, int depth) {
     hitRecord rec = { 0 };
     if (hitableListHit(world, r, 0.001, FLT_MAX, &rec)) {
         ray scattered = {(vec3){0, 0, 0}, (vec3){0, 0, 0}};
@@ -46,9 +46,9 @@ size_t randomScene(hitable ***list_) {
     
     list[0] = (hitable*)sphereNew((vec3){0, -1000, 0}, 1000, (material*)lambertianNew((vec3){0.5, 0.5, 0.5}));
 
-    size_t i = 1;
-    for (int32_t a = -11; a < 11; a++) {
-        for (int32_t b = -11; b < 11; b++) {
+    int i = 1;
+    for (int a = -11; a < 11; a++) {
+        for (int b = -11; b < 11; b++) {
             float choose_mat = drand48();
 
             vec3 center = {a + 0.9 * drand48(), 0.2, b + 0.9 * drand48()};
@@ -88,15 +88,6 @@ size_t randomScene(hitable ***list_) {
     list[i++] = (hitable*)sphereNew((vec3){4, 1, 0}, 1, (material*)metalNew((vec3){0.7, 0.6, 0.5}, 0));
 
     return i;
-}
-
-uint32_t numDigits(uint32_t n) {
-    uint32_t l = 0;
-    while (n) {
-        n = n / 10;
-        l++;
-    }
-    return l;
 }
 
 typedef struct {
